@@ -1,7 +1,41 @@
 # Prompt Palette
 
+*"Copy/paste any prompt into any agent in 2 seconds."*
+
+**Keyboard-first prompt launcher for people who live in AI tools.**
+
+Mac only.
+
 Quickly copy/paste your prompts across various agents, if you do not like setting up skills like me.
 
 All keybind controlled, as my old hardcore gaming days crave it.
 
 Feel free to fork, pork, steal. Have fun.
+
+If you need any changes, feel free to fuck off and tell your agent to do it. If you for any reason can't do that, I will help. Much love.
+
+## How to use
+
+1. Open Prompt Palette.
+2. Use the menu bar icon and choose **Manage Prompts...**.
+3. Add prompts or folders.
+4. Press `Cmd+F1` to open the palette.
+5. Pick a prompt. Its text is copied to your clipboard.
+6. Paste it wherever you need it.
+
+## Hotkeys
+
+- `Cmd+F1` opens the prompt palette.
+- `Cmd+F2` opens the management window.
+- `1`-`5`, then `Q`, `W`, `E`, `R` pick visible palette items.
+- `↑` / `↓` move selection.
+- `Return` opens the selected folder or copies the selected prompt.
+- `Tab` enters search.
+- The key under `Esc` goes back or exits search. On my keyboard, that is `<`.
+- `Esc` dismisses the palette or closes the management window.
+
+## TODO
+
+- Make a video demonstration?
+- Make a screen demonstration?
+- Add a donation option and create a $1 validation flow?
