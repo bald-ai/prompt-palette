@@ -14,6 +14,24 @@ Feel free to fork, pork, steal. Have fun.
 
 If you need any changes, feel free to fuck off and tell your agent to do it. If you for any reason can't do that, I will help. Much love.
 
+## Quick Start
+
+```bash
+cd prompt-palette
+swift build
+swift run PromptPalette
+```
+
+This repo is source-only. If you want a clickable `.app`, ask any coding agent
+to package the SwiftPM project into a macOS app bundle for you.
+
+Prompt Palette runs as a menu bar app, so after `swift run PromptPalette` look
+for the menu bar icon. From there, choose **Manage Prompts...** or press
+`Cmd+F2` to add prompts.
+
+If the global shortcut does not work, macOS may already be using it. The app
+will show an alert if it cannot register the shortcut.
+
 ## How to use
 
 1. Open Prompt Palette.
