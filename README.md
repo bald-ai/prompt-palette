@@ -34,6 +34,13 @@ If you need any changes, feel free to fuck off and tell your agent to do it. If 
 - The key under `Esc` goes back or exits search. On my keyboard, that is `<`.
 - `Esc` dismisses the palette or closes the management window.
 
+Important: the picker keys are based on physical key positions, not typed
+characters. `1`-`5` means the five number-row keys directly above the left-hand
+letter keys, and `Q`, `W`, `E`, `R` means those same physical left-hand positions
+on a QWERTY keyboard. This keeps the picker fast and left-handed even on
+non-QWERTY layouts, but the letters shown in the app may not match every
+keyboard layout.
+
 ## TODO
 
 - Make a video demonstration?
