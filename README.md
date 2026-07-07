@@ -22,8 +22,11 @@ swift build
 swift run PromptPalette
 ```
 
-This repo is source-only. If you want a clickable `.app`, ask any coding agent
-to package the SwiftPM project into a macOS app bundle for you.
+To build a clickable `.app` with the packaged icon:
+
+```bash
+./scripts/build-app.sh ~/Desktop
+```
 
 Prompt Palette runs as a menu bar app, so after `swift run PromptPalette` look
 for the menu bar icon. From there, choose **Manage Prompts...** or press
