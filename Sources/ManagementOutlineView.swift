@@ -14,7 +14,7 @@ struct ManagementOutlineView: NSViewRepresentable {
         scrollView.hasHorizontalScroller = false
         scrollView.borderType = .noBorder
         scrollView.drawsBackground = true
-        scrollView.backgroundColor = ThemeColors.sidebarBackground
+        scrollView.backgroundColor = Theme.sidebarBackgroundNSColor
 
         let outlineView = NSOutlineView()
         outlineView.headerView = nil
@@ -25,7 +25,7 @@ struct ManagementOutlineView: NSViewRepresentable {
         outlineView.allowsMultipleSelection = false
         outlineView.indentationPerLevel = 18
         outlineView.focusRingType = .none
-        outlineView.backgroundColor = ThemeColors.sidebarBackground
+        outlineView.backgroundColor = Theme.sidebarBackgroundNSColor
         outlineView.usesAlternatingRowBackgroundColors = false
         outlineView.registerForDraggedTypes([.string])
         outlineView.setDraggingSourceOperationMask(.move, forLocal: true)
@@ -276,14 +276,6 @@ private final class OutlineNode: NSObject {
     }
 }
 
-/// Modern-dark color constants for the AppKit outline view (mirrors Theme.swift).
-private enum ThemeColors {
-    static let sidebarBackground = NSColor(srgbRed: 0x22 / 255, green: 0x22 / 255, blue: 0x28 / 255, alpha: 1)
-    static let accent = NSColor(srgbRed: 0x6e / 255, green: 0x8e / 255, blue: 0xfb / 255, alpha: 1)
-    static let accent2 = NSColor(srgbRed: 0xa7 / 255, green: 0x77 / 255, blue: 0xe3 / 255, alpha: 1)
-    static let inkSecondary = NSColor(srgbRed: 0xb7 / 255, green: 0xb7 / 255, blue: 0xc2 / 255, alpha: 1)
-}
-
 /// Custom row view that paints the blue -> purple accent gradient for the selected row.
 private final class PromptOutlineRowView: NSTableRowView {
     var isSelectedRow = false
@@ -299,7 +291,7 @@ private final class PromptOutlineRowView: NSTableRowView {
 
         let rect = bounds.insetBy(dx: 4, dy: 1)
         let path = NSBezierPath(roundedRect: rect, xRadius: 8, yRadius: 8)
-        let gradient = NSGradient(colors: [ThemeColors.accent, ThemeColors.accent2])
+        let gradient = NSGradient(colors: [Theme.accentNSColor, Theme.accent2NSColor])
         gradient?.draw(in: path, angle: 0)
     }
 }
@@ -327,15 +319,15 @@ private final class PromptOutlineCell: NSTableCellView {
             systemSymbolName: item.isFolder ? "folder.fill" : "sparkle",
             accessibilityDescription: item.isFolder ? "Folder" : "Prompt"
         )
-        iconView.contentTintColor = isSelected ? .white : ThemeColors.inkSecondary
+        iconView.contentTintColor = isSelected ? .white : Theme.inkSecondaryNSColor
         iconView.alphaValue = isSelected ? 1.0 : 0.7
 
         titleField.stringValue = item.title
-        titleField.textColor = isSelected ? .white : ThemeColors.inkSecondary
+        titleField.textColor = isSelected ? .white : Theme.inkSecondaryNSColor
 
         if item.isFolder, let children = item.children, children.isEmpty == false {
             countField.stringValue = "\(children.count)"
-            countField.textColor = isSelected ? .white : ThemeColors.inkSecondary
+            countField.textColor = isSelected ? .white : Theme.inkSecondaryNSColor
             countContainer.layer?.backgroundColor = (isSelected
                 ? NSColor.white.withAlphaComponent(0.22)
                 : NSColor.white.withAlphaComponent(0.08)).cgColor

@@ -40,7 +40,7 @@ BUILD_NUMBER="$(git -C "$ROOT_DIR" rev-list --count HEAD 2>/dev/null || date +%Y
 /usr/libexec/PlistBuddy -c "Add :CFBundlePackageType string APPL" "$INFO_PLIST"
 /usr/libexec/PlistBuddy -c "Add :CFBundleShortVersionString string 1.0" "$INFO_PLIST"
 /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string $BUILD_NUMBER" "$INFO_PLIST"
-/usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string 26.0" "$INFO_PLIST"
+/usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string 14.0" "$INFO_PLIST"
 /usr/libexec/PlistBuddy -c "Add :LSUIElement bool true" "$INFO_PLIST"
 /usr/libexec/PlistBuddy -c "Add :NSHighResolutionCapable bool true" "$INFO_PLIST"
 

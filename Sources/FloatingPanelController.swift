@@ -115,7 +115,7 @@ final class FloatingPanelController: NSObject, NSWindowDelegate {
     // MARK: - Key Handling
 
     private func handle(event: NSEvent) -> Bool {
-        if event.keyCode == 53 {
+        if event.keyCode == AppShortcuts.Key.escape {
             dismiss()
             return true
         }
@@ -127,16 +127,16 @@ final class FloatingPanelController: NSObject, NSWindowDelegate {
         // Arrow navigation + Enter work in accelerator mode too (the "forgot a
         // keybind / just point at it" path), alongside the 1-5 / QWER shortcuts.
         switch event.keyCode {
-        case 48: // Tab enters search mode
+        case AppShortcuts.Key.tab: // Tab enters search mode
             enterSearch()
             return true
-        case 125: // Arrow down
+        case AppShortcuts.Key.arrowDown:
             moveHighlight(by: 1)
             return true
-        case 126: // Arrow up
+        case AppShortcuts.Key.arrowUp:
             moveHighlight(by: -1)
             return true
-        case 36, 76: // Return / keypad enter
+        case AppShortcuts.Key.returnKey, AppShortcuts.Key.keypadEnter:
             activateHighlighted()
             return true
         default:
@@ -148,7 +148,7 @@ final class FloatingPanelController: NSObject, NSWindowDelegate {
             return true
         }
 
-        guard let index = selectedPromptIndex(for: event) else { return false }
+        guard let index = AppShortcuts.paletteItemIndex(for: event.keyCode) else { return false }
         guard navigationState.currentItems.indices.contains(index) else { return true }
 
         activate(item: navigationState.currentItems[index], at: index)
@@ -243,22 +243,22 @@ final class FloatingPanelController: NSObject, NSWindowDelegate {
         }
 
         switch event.keyCode {
-        case 48: // Tab — already searching, ignore
+        case AppShortcuts.Key.tab: // already searching, ignore
             return true
-        case 51: // Delete / Backspace — edit the query
+        case AppShortcuts.Key.delete: // Backspace edits the query
             if navigationState.searchQuery.isEmpty == false {
                 navigationState.searchQuery.removeLast()
                 highlight = 0
                 renderResting()
             }
             return true
-        case 125: // Arrow down
+        case AppShortcuts.Key.arrowDown:
             moveHighlight(by: 1)
             return true
-        case 126: // Arrow up
+        case AppShortcuts.Key.arrowUp:
             moveHighlight(by: -1)
             return true
-        case 36, 76: // Return / keypad enter — run highlighted item
+        case AppShortcuts.Key.returnKey, AppShortcuts.Key.keypadEnter:
             activateHighlighted()
             return true
         default:
@@ -287,33 +287,6 @@ final class FloatingPanelController: NSObject, NSWindowDelegate {
         guard navigationState.goBack() else { return }
         highlight = 0
         renderResting(direction: .backward)
-    }
-
-    private func selectedPromptIndex(for event: NSEvent) -> Int? {
-        // Physical key codes — layout-independent
-        // Row 1: 1-5, Row 2: Q-W-E-R (left hand only)
-        switch event.keyCode {
-        case 18: return 0  // 1
-        case 19: return 1  // 2
-        case 20: return 2  // 3
-        case 21: return 3  // 4
-        case 23: return 4  // 5
-        case 12: return 5  // Q
-        case 13: return 6  // W
-        case 14: return 7  // E
-        case 15: return 8  // R
-        // Numpad
-        case 83: return 0
-        case 84: return 1
-        case 85: return 2
-        case 86: return 3
-        case 87: return 4
-        case 88: return 5
-        case 89: return 6
-        case 91: return 7
-        case 92: return 8
-        default: return nil
-        }
     }
 
     // MARK: - View Updates

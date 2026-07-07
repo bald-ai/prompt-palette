@@ -172,6 +172,23 @@ final class PromptStoreTests: XCTestCase {
         XCTAssertEqual(items.map(\.title), ["Two", "Three", "One"])
     }
 
+    func testMoveToDifferentParentRejectsInsertionPastEndWithoutRemovingItem() throws {
+        let directory = try makeTemporaryDirectory()
+        let store = PromptStore(directoryURL: directory)
+        let sourceFolder = try store.addFolder(title: "Source")
+        let destinationFolder = try store.addFolder(title: "Destination")
+        let prompt = try store.addPrompt(title: "Move Me", content: "Prompt", parentID: sourceFolder.id)
+
+        XCTAssertFalse(store.canMoveItem(id: prompt.id, toParent: destinationFolder.id, insertionIndex: 1))
+        XCTAssertThrowsError(try store.moveItem(id: prompt.id, destinationParentID: destinationFolder.id, insertionIndex: 1)) { error in
+            XCTAssertEqual(error as? PromptStoreError, .invalidMoveDestination)
+        }
+
+        XCTAssertEqual(store.item(withID: sourceFolder.id)?.children?.map(\.title), ["Move Me"])
+        XCTAssertEqual(store.item(withID: destinationFolder.id)?.children?.map(\.title), [])
+        XCTAssertEqual(store.item(withID: prompt.id)?.title, "Move Me")
+    }
+
     func testDeleteFolderRemovesWholeBranch() throws {
         let directory = try makeTemporaryDirectory()
         let store = PromptStore(directoryURL: directory)

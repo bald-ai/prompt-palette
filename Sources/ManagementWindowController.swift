@@ -6,7 +6,7 @@ final class ManagementWindowController: NSWindowController, NSWindowDelegate {
     private let viewModel: ManagementViewModel
     private var keyDownMonitor: Any?
 
-    init(store: PromptStore, preferencesStore: PreferencesStore) {
+    init(store: PromptStore, usageStatsStore: UsageStatsStore) {
         self.viewModel = ManagementViewModel(store: store)
 
         let window = NSWindow(
@@ -25,7 +25,7 @@ final class ManagementWindowController: NSWindowController, NSWindowDelegate {
             rootView: ManagementView(
                 store: store,
                 viewModel: viewModel,
-                preferencesStore: preferencesStore,
+                usageStatsStore: usageStatsStore,
                 onExit: { [weak window] in
                     window?.close()
                 }
@@ -66,7 +66,7 @@ final class ManagementWindowController: NSWindowController, NSWindowDelegate {
                 return event
             }
 
-            if event.keyCode == 53 {
+            if event.keyCode == AppShortcuts.Key.escape {
                 window?.close()
                 return nil
             }
@@ -76,13 +76,13 @@ final class ManagementWindowController: NSWindowController, NSWindowDelegate {
             }
 
             switch event.keyCode {
-            case 36, 76:
+            case AppShortcuts.Key.returnKey, AppShortcuts.Key.keypadEnter:
                 self.viewModel.toggleSelectedFolderExpansion()
                 return nil
-            case 125:
+            case AppShortcuts.Key.arrowDown:
                 self.viewModel.moveSelectionDown()
                 return nil
-            case 126:
+            case AppShortcuts.Key.arrowUp:
                 self.viewModel.moveSelectionUp()
                 return nil
             default:

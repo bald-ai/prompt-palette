@@ -3,7 +3,7 @@ import AppKit
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let promptStore = PromptStore()
-    private let preferencesStore = PreferencesStore()
+    private let usageStatsStore = UsageStatsStore()
     private let hotKeyService = HotKeyService()
     private let keyboardLayoutHelper = KeyboardLayoutHelper()
     private lazy var floatingPanelController = FloatingPanelController(keyboardLayoutHelper: keyboardLayoutHelper)
@@ -74,7 +74,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func setupManagementWindow() {
-        managementWindowController = ManagementWindowController(store: promptStore, preferencesStore: preferencesStore)
+        managementWindowController = ManagementWindowController(store: promptStore, usageStatsStore: usageStatsStore)
     }
 
     private func setupFloatingPanel() {
@@ -86,7 +86,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
             do {
                 try self?.promptStore.incrementUseCount(id: prompt.id)
-                try self?.preferencesStore.incrementTotalUsedAllTime()
+                try self?.usageStatsStore.incrementTotalUsedAllTime()
             } catch {
                 NSLog("PromptPalette: Failed to increment use count for %@. Error: %@", prompt.id.uuidString, error.localizedDescription)
             }
@@ -95,10 +95,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func registerHotKeys() {
         do {
-            try hotKeyService.register(keyCode: 122, modifiers: [.command]) { [weak self] in
+            let showPalette = AppShortcuts.Global.showPalette
+            try hotKeyService.register(keyCode: showPalette.keyCode, modifiers: showPalette.modifiers) { [weak self] in
                 self?.handleHotKeyPressed()
             }
-            try hotKeyService.register(keyCode: 120, modifiers: [.command]) { [weak self] in
+
+            let openManagement = AppShortcuts.Global.openManagement
+            try hotKeyService.register(keyCode: openManagement.keyCode, modifiers: openManagement.modifiers) { [weak self] in
                 self?.openManagementWindow(nil)
             }
         } catch {

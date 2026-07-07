@@ -4,7 +4,7 @@ import SwiftUI
 struct ManagementView: View {
     @ObservedObject var store: PromptStore
     @ObservedObject var viewModel: ManagementViewModel
-    var preferencesStore: PreferencesStore
+    var usageStatsStore: UsageStatsStore
     var onExit: () -> Void = {}
 
     var body: some View {
@@ -81,7 +81,7 @@ struct ManagementView: View {
                 Circle()
                     .fill(Theme.green)
                     .frame(width: 6, height: 6)
-                Text("\(preferencesStore.loadTotalUsedAllTime()) prompts used all time")
+                Text("\(usageStatsStore.loadTotalUsedAllTime()) prompts used all time")
                     .font(.system(size: 11))
                     .foregroundStyle(.tertiary)
             }

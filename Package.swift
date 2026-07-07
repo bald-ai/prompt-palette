@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "PromptPalette",
     platforms: [
-        .macOS(.v26),
+        .macOS(.v14),
     ],
     products: [
         .executable(name: "PromptPalette", targets: ["PromptPalette"]),

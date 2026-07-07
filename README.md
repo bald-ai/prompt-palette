@@ -16,6 +16,11 @@ If you need any changes, feel free to fuck off and tell your agent to do it. If 
 
 ## Quick Start
 
+Requirements:
+
+- macOS 14 or newer
+- Swift 6.2 / Xcode 26 or newer
+
 ```bash
 cd prompt-palette
 swift build

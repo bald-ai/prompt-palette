@@ -345,7 +345,7 @@ final class PromptStore: ObservableObject {
             throw PromptStoreError.childLimitExceeded
         }
 
-        guard insertionIndex >= 0, insertionIndex <= (movingWithinSameParent ? destinationCount : destinationCount + 1) else {
+        guard insertionIndex >= 0, insertionIndex <= destinationCount else {
             throw PromptStoreError.invalidMoveDestination
         }
 

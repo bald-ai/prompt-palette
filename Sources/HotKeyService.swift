@@ -1,6 +1,26 @@
 import AppKit
 import Carbon
 
+enum HotKeyModifier {
+    case command
+    case option
+    case control
+    case shift
+
+    var carbonFlag: UInt32 {
+        switch self {
+        case .command:
+            return UInt32(cmdKey)
+        case .option:
+            return UInt32(optionKey)
+        case .control:
+            return UInt32(controlKey)
+        case .shift:
+            return UInt32(shiftKey)
+        }
+    }
+}
+
 enum HotKeyServiceError: LocalizedError {
     case eventHandlerInstallationFailed(OSStatus)
     case registrationFailed(OSStatus)
