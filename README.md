@@ -43,6 +43,10 @@ will show an alert if it cannot register the shortcut.
 
 ## Hotkeys
 
+Hotkeys are intentionally hardcoded in the app source. If you want to change
+any of them, tell your coding agent what shortcut you want, have it edit the
+source, then build the app again.
+
 - `Cmd+F1` opens the prompt palette.
 - `Cmd+F2` opens the management window.
 - `1`-`5`, then `Q`, `W`, `E`, `R` pick visible palette items.

@@ -94,10 +94,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func registerHotKeys() {
-        let preferences = preferencesStore.load()
-
         do {
-            try hotKeyService.register(keyCode: preferences.keyCode, modifiers: preferences.modifiers) { [weak self] in
+            try hotKeyService.register(keyCode: 122, modifiers: [.command]) { [weak self] in
                 self?.handleHotKeyPressed()
             }
             try hotKeyService.register(keyCode: 120, modifiers: [.command]) { [weak self] in
@@ -146,7 +144,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = "Global shortcut unavailable"
-        alert.informativeText = "Prompt Palette could not register the configured shortcut. It may already be in use. You can change it in \(preferencesStore.preferencesFileURL.path)."
+        alert.informativeText = "Prompt Palette could not register its shortcut. It may already be in use by macOS or another app."
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
