@@ -18,8 +18,12 @@ If you need any changes, feel free to fuck off and tell your agent to do it. If 
 
 Requirements:
 
-- macOS 14 or newer
+- macOS 15.6 or newer
 - Swift 6.2 / Xcode 26 or newer
+
+Prompt Palette is source-only; no prebuilt binaries are provided. It builds
+natively on both Apple silicon and Intel Macs. Intel is supported but untested
+because I do not have an Intel Mac.
 
 ```bash
 cd prompt-palette
